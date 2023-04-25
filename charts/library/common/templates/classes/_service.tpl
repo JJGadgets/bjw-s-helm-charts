@@ -49,6 +49,11 @@ spec:
   loadBalancerSourceRanges:
     {{ toYaml $values.loadBalancerSourceRanges | nindent 4 }}
   {{- end -}}
+  {{- else if eq $svcType "ExternalName" }}
+  type: {{ $svcType }}
+  {{- if $values.externalName }}
+  loadBalancerIP: {{ $values.externalName }}
+  {{- end }}
   {{- else }}
   type: {{ $svcType }}
   {{- end }}
